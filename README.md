@@ -9,6 +9,8 @@
 ```
 git clone https://github.com/chaoyingc/docker-compose.git
 ```
+change the path of the first line by the path of the "data" repository in your own machine.
+
 2,Run the application:
 ```
 docker-compose up
