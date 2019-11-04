@@ -1,0 +1,46 @@
+version: '3'
+
+#set up our 2 services 
+services:
+  #app    
+  web:
+    build: .
+    image : flask-redis-app
+    restart: always
+    ports:
+      - "5000:5000"
+    volumes:
+      - test-mount-vol:${PATH_APP}
+    environment:
+      FLASK_ENV: development
+    networks : 
+      - frontend 
+      - backend   
+
+  #bdd    
+  redis:
+    image: "redis:alpine"
+    restart: always
+    volumes: 
+      - test-mount-vol:${PATH_SERVER}
+    networks :
+      - backend    
+
+
+#add network 
+networks : 
+  backend : 
+  frontend : 
+  
+
+#test : mount existing volume 
+volumes:     
+  test-mount-vol :
+    driver : local 
+    driver_opts: 
+      type : 'none'
+      device : ${PATH_DATA}
+      o : bind
+
+      
+
